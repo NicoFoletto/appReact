@@ -15,8 +15,25 @@ function App() {
   const cambiarEstado = (val) => setMensaje(val);
   const [colorMensaje, setColorMensaje] = useState("color")
   const cambiarColor = (color) => setColorMensaje(color);
-
- 
+  const [state, setState] = useState(false)
+  const fetchData = () => {
+    fetch('https://jsonplaceholder.typicode.com/todos/10')
+    .then(res => res.json())
+    .then(data => console.log(data))
+    .catch(error => console.log(error))
+  }
+  
+//useEffect(() => {
+  //  console.log('se ha alcanzado el render')
+   // fetchData()
+ // }, [state])
+  //
+ useEffect(() => {
+   if(state){
+     console.log('El estado es verdadero, activamos el useEffect')
+     fetchData()
+   } 
+ }, [state])
  const Routing = () =>{
   return (
    
@@ -36,18 +53,21 @@ function App() {
     <Router>
       
       <Navbar/>
-     
+     <>
+     </>
+
       <Routing/>
       <div className="App">
 
 {
-  mensaje &&  <p style= {{color:colorMensaje||"white"}}>ACTIVADO</p> 
+  mensaje &&  <p style= {{color:colorMensaje||"white"}}>useEffect funcionando</p> 
 }
 <button
 onClick={() =>{
   cambiarEstado(!mensaje) 
-  cambiarColor("red")}}>
-  ACTIVAR/DESACTIVAR</button>
+  cambiarColor("green")
+  setState(!state)}}>
+CAMBIAR</button>
   </div>
     </Router> 
 
