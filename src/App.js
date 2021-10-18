@@ -4,10 +4,19 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Home from './pages/Home';
 import Post from './pages/Post';
 import Users from './pages/Users';
+import React, { useState}  from 'react';
+import {useEffect} from 'react';
 
 
 
 function App() {
+
+  const [mensaje,setMensaje] = useState(false);
+  const cambiarEstado = (val) => setMensaje(val);
+  const [colorMensaje, setColorMensaje] = useState("color")
+  const cambiarColor = (color) => setColorMensaje(color);
+
+ 
  const Routing = () =>{
   return (
    
@@ -23,10 +32,24 @@ function App() {
  ) };
 
   return(
+
     <Router>
+      
       <Navbar/>
+     
       <Routing/>
-    </Router>
+      <div className="App">
+
+{
+  mensaje &&  <p style= {{color:colorMensaje||"white"}}>ACTIVADO</p> 
+}
+<button
+onClick={() =>{
+  cambiarEstado(!mensaje) 
+  cambiarColor("red")}}>
+  ACTIVAR/DESACTIVAR</button>
+  </div>
+    </Router> 
 
 
   ) ; 
